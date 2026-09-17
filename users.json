@@ -1,0 +1,58 @@
+{
+    "shayan": {
+        "password": "pak112233",
+        "role": "admin"
+    },
+    "test": {
+        "password": "test123",
+        "role": "user",
+        "servers": [
+            {
+                "server_id": "762957bd",
+                "link": "762957bd",
+                "login_url": "/762957bd/login",
+                "dashboard_url": "/762957bd/home",
+                "full_link": "http://5000-ierurh1vzmgsu0luaflwe-8764f8e0.us3.manus.computer/762957bd/home",
+                "type": "python",
+                "ram": "4GB",
+                "disk": "10GB",
+                "status": "stopped",
+                "pid": null,
+                "created": "2026-08-24 14:39:52.962992",
+                "expiry": "2026-09-23 14:39:52.962769",
+                "main_file": "ssh.py",
+                "requirements_file": "requirements.txt",
+                "cpu_limit": 100,
+                "rate_limit_exceeded": false,
+                "stopped_by_user": true,
+                "started_at": "2026-08-25 03:23:25.830818",
+                "rate_limit_enabled": false
+            }
+        ]
+    },
+    "qwq": {
+        "password": "qwq1",
+        "role": "user",
+        "servers": [
+            {
+                "server_id": "cd5cb3bf",
+                "login_url": "/cd5cb3bf/login",
+                "dashboard_url": "/cd5cb3bf/home",
+                "full_link": "https://5000-iz8ju8dxestg7e9zq5173-402e75bc.us1.manus.computer/cd5cb3bf/login",
+                "type": "python",
+                "ram": "1GB",
+                "disk": "1GB",
+                "status": "stopped",
+                "pid": null,
+                "created": "2026-09-17 14:54:32.875289",
+                "expiry": "2026-09-20 14:54:32.874847",
+                "main_file": "main.py",
+                "requirements_file": "requirements.txt",
+                "cpu_limit": 30,
+                "rate_limit_enabled": false,
+                "rate_limit_exceeded": false,
+                "stopped_by_user": false
+            }
+        ]
+    }
+}
