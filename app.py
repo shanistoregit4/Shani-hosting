@@ -18,6 +18,7 @@ class ManagedProcess:
     def __init__(self, process, stdin_handle=None):
         self._process = process
         self.stdin = stdin_handle if stdin_handle is not None else process.stdin
+        self.stdout = process.stdout
 
     @property
     def pid(self):
@@ -365,12 +366,27 @@ def run_bot(server_id, main_file='main.py', requirements_file='requirements.txt'
         def stream_output():
             try:
                 with open(log_file, 'a', encoding='utf-8') as f:
-                    for line in iter(proc.stdout.readline, ''):
-                        if line:
-                            line = line.rstrip('\n\r')
-                            if line:
-                                f.write(f"[{datetime.now().strftime('%I:%M:%S %p')}] {line}\n")
+                    # input(prompt) writes a prompt without a trailing newline.
+                    # Read one character at a time so those prompts reach the UI
+                    # instead of remaining stuck inside readline().
+                    pending = ''
+                    for char in iter(lambda: proc.stdout.read(1), ''):
+                        if char in ('\n', '\r'):
+                            if pending:
+                                f.write(f"[{datetime.now().strftime('%I:%M:%S %p')}] {pending}\n")
                                 f.flush()
+                                pending = ''
+                        else:
+                            pending += char
+                            if len(pending) >= 1:
+                                f.seek(0, os.SEEK_END)
+                                if pending.startswith('\x1b') or pending.endswith(('> ', ': ', '? ')):
+                                    f.write(f"[{datetime.now().strftime('%I:%M:%S %p')}] {pending}")
+                                    f.flush()
+                                    pending = ''
+                    if pending:
+                        f.write(f"[{datetime.now().strftime('%I:%M:%S %p')}] {pending}\n")
+                        f.flush()
             except: pass
             finally:
                 try:
