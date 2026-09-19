@@ -853,7 +853,10 @@ def api_stop(server_id):
 def api_logs(server_id):
     log_file = os.path.join(get_server_dir(server_id), 'output.log')
     if os.path.exists(log_file):
-        with open(log_file, 'r', encoding='utf-8') as f: logs = f.read()
+        with open(log_file, 'r', encoding='utf-8') as f:
+            content = f.read()
+        words = content.split()
+        logs = ' '.join(words[-1000:])
     else: logs = ""
     return jsonify({'logs': logs})
 
